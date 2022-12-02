@@ -27,24 +27,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  return (
-    <div>
-      <p>
-        {sessionData && <span>Logged in as {sessionData?.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button onClick={sessionData ? () => signOut() : () => signIn()}>
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
