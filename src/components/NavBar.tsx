@@ -2,11 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import {
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
   ButtonGroup,
-  MenuDivider,
-  Button,
   Flex,
   Menu,
   MenuButton,
@@ -33,18 +29,18 @@ export default function NavBar() {
         <>
           <Menu>
             <MenuButton>
-              <Avatar name={`${sessionData.user?.name}`} src={image} colorScheme="facebook"color="white" referrerPolicy="no-referrer" />
+              <Avatar
+                name={`${sessionData.user?.name}`}
+                src={image}
+                colorScheme="facebook"
+                color="white"
+                referrerPolicy="no-referrer"
+              />
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
                 <MenuItem>My Account</MenuItem>
-                <MenuItem>Payments </MenuItem>
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
-              </MenuGroup>
-              <MenuDivider />
-              <MenuGroup title="Help">
-                <MenuItem>Docs</MenuItem>
-                <MenuItem>FAQ</MenuItem>
               </MenuGroup>
             </MenuList>
           </Menu>
