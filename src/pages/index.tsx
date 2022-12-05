@@ -2,17 +2,11 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-
 import { trpc } from "../utils/trpc";
+import { Flex, Text } from "@chakra-ui/react";
+
+import HookForm from "../components/Form";
 import NavBar from "../components/NavBar";
-import {
-  Flex,
-  Text,
-  Input,
-  IconButton,
-  Icon,
-  FormControl,
-} from "@chakra-ui/react";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -48,19 +42,8 @@ const Home: NextPage = () => {
               <Text fontSize="sm">(Until I run out of credits) 😅</Text>
             </>
           )}
-
-          <Input
-            isRequired={true}
-            backgroundColor="white"
-            marginTop="10"
-            placeholder="crayon drawing of several cute colorful monsters with ice cream cone bodies on dark blue paper"
-            _placeholder={{ opacity: 0.4, color: "black" }}
-            maxW="4xl"
-            size="md"
-            autoFocus={true}
-            name="prompt"
-          />
         </Flex>
+        <HookForm />
       </main>
     </>
   );
