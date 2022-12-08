@@ -33,12 +33,8 @@ const Home: NextPage = () => {
                 fontWeight="extrabold"
               >
                 {/* this gets the first name since Google puts first and last in one field */}
-                Welcome back {sessionData.user?.name?.split(" ")[0]}
+                Welcome back, {sessionData.user?.name?.split(" ")[0]}
               </Text>
-              <Text fontSize="3xl" marginBottom="0">
-                Another Text-To-Art Generator
-              </Text>
-              <Text fontSize="sm">(Until I run out of credits) 😅</Text>
             </Stack>
           ) : (
             <Stack marginBottom="10" textAlign="center">
