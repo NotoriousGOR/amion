@@ -10,6 +10,12 @@ import {
   FormLabel,
   InputRightElement,
 } from "@chakra-ui/react";
+import { generateImage } from "../hooks/generateImage";
+
+type FormValues = {
+  prompt: string;
+  size: string;
+};
 
 export default function HookForm() {
   const {
@@ -18,18 +24,14 @@ export default function HookForm() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    console.log(values);
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
-  }
+  const generate = (values: unknown) => {
+    const { size, prompt } = values;
+
+    generateImage(size, prompt);
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(generate)}>
       <Flex direction="row" align="center" justify="center">
         <FormControl marginRight="10">
           <FormLabel color="white" opacity={0.4}>
@@ -40,7 +42,7 @@ export default function HookForm() {
             placeholder="Select Size"
             backgroundColor="white"
             color="black"
-            size="md"
+            fontSize="xl"
             w="xxs"
             defaultValue="medium"
             {...register("size", {
@@ -62,19 +64,18 @@ export default function HookForm() {
               backgroundColor="white"
               color="black"
               type="text"
+              fontSize="xl"
               autoFocus
               placeholder="crayon drawing of several cute colorful monsters with ice cream cone bodies on dark blue paper"
               _placeholder={{ opacity: 0.4, color: "black" }}
               w="4xl"
-              size="md"
               {...register("prompt", {
                 required: "This is required",
               })}
             />
             <InputRightElement width="4.5rem">
               <Button
-                size="md"
-                colorScheme="teal"
+                colorScheme="linkedin"
                 isLoading={isSubmitting}
                 type="submit"
                 borderRadius="none"

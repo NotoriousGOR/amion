@@ -2,14 +2,16 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import {
   Avatar,
-  ButtonGroup,
   Flex,
   Menu,
   MenuButton,
   MenuList,
   MenuGroup,
   MenuItem,
+  IconButton,
 } from "@chakra-ui/react";
+
+import { RepeatClockIcon } from "@chakra-ui/icons";
 
 export default function NavBar() {
   const { data: sessionData } = useSession();
@@ -26,7 +28,7 @@ export default function NavBar() {
       marginY={30}
     >
       {sessionData ? (
-        <>
+        <Flex direction="column" align="center" justify="center">
           <Menu>
             <MenuButton>
               <Avatar
@@ -44,17 +46,14 @@ export default function NavBar() {
               </MenuGroup>
             </MenuList>
           </Menu>
-        </>
+          <IconButton marginTop="3" backgroundColor="transparent" aria-label="History" icon={ <RepeatClockIcon w={6} h={6} /> } />
+        </Flex>
       ) : (
-        <>
-          <ButtonGroup gap="2">
-            <Avatar
-              onClick={() => signIn()}
-              colorScheme="facebook"
-              color="white"
-            ></Avatar>
-          </ButtonGroup>
-        </>
+        <Avatar
+          onClick={() => signIn()}
+          colorScheme="facebook"
+          color="white"
+        ></Avatar>
       )}
     </Flex>
   );

@@ -1,17 +1,16 @@
 import type { ImagesResponse } from "openai";
 import { Configuration, OpenAIApi } from "openai";
-import { env } from "../env/server.mjs";
 
 const configuration = new Configuration({
-  apiKey: env.OPENAPI_KEY,
+  apiKey: process.env.OPENAPI_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
 
-export const generateImage = async (
+export async function generateImage(
   prompt: string,
   size: string
-): Promise<ImagesResponse | void> => {
+): Promise<ImagesResponse | void> {
   const imageSize =
     size === "small" ? "256x256" : size === "medium" ? "512x512" : "1024x1024";
 
@@ -34,4 +33,4 @@ export const generateImage = async (
       console.log(error);
     }
   }
-};
+}

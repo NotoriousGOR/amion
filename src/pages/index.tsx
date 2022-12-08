@@ -10,7 +10,6 @@ import NavBar from "../components/NavBar";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
-
   return (
     <>
       <Head>
@@ -26,12 +25,7 @@ const Home: NextPage = () => {
         <Flex direction="column" justify="center" align="center">
           {sessionData ? (
             <Stack marginBottom="10" textAlign="center">
-              <Text
-                bgGradient="linear(to-l, #7928CA, #FF0080)"
-                bgClip="text"
-                fontSize="6xl"
-                fontWeight="extrabold"
-              >
+              <Text fontSize="6xl" fontWeight="bold">
                 {/* this gets the first name since Google puts first and last in one field */}
                 Welcome back, {sessionData.user?.name?.split(" ")[0]}
               </Text>
@@ -42,9 +36,9 @@ const Home: NextPage = () => {
                 bgGradient="linear(to-l, #7928CA, #FF0080)"
                 bgClip="text"
                 fontSize="6xl"
-                fontWeight="extrabold"
+                fontWeight="bold"
               >
-                Welcome to Avi
+                Welcome to AVI
               </Text>
               <Text fontSize="3xl" marginBottom="0">
                 Another Text-To-Art Generator
