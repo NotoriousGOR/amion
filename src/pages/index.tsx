@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 
 import HookForm from "../components/Form";
 import NavBar from "../components/NavBar";
@@ -25,9 +25,23 @@ const Home: NextPage = () => {
         <NavBar />
         <Flex direction="column" justify="center" align="center">
           {sessionData ? (
-            <>Hello {sessionData.user?.name}</>
+            <Stack marginBottom="10" textAlign="center">
+              <Text
+                bgGradient="linear(to-l, #7928CA, #FF0080)"
+                bgClip="text"
+                fontSize="6xl"
+                fontWeight="extrabold"
+              >
+                {/* this gets the first name since Google puts first and last in one field */}
+                Welcome back {sessionData.user?.name?.split(" ")[0]}
+              </Text>
+              <Text fontSize="3xl" marginBottom="0">
+                Another Text-To-Art Generator
+              </Text>
+              <Text fontSize="sm">(Until I run out of credits) 😅</Text>
+            </Stack>
           ) : (
-            <>
+            <Stack marginBottom="10" textAlign="center">
               <Text
                 bgGradient="linear(to-l, #7928CA, #FF0080)"
                 bgClip="text"
@@ -40,10 +54,10 @@ const Home: NextPage = () => {
                 Another Text-To-Art Generator
               </Text>
               <Text fontSize="sm">(Until I run out of credits) 😅</Text>
-            </>
+            </Stack>
           )}
+          <HookForm />
         </Flex>
-        <HookForm />
       </main>
     </>
   );
