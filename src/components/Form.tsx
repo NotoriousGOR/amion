@@ -1,4 +1,6 @@
+import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
+
 import {
   FormErrorMessage,
   FormControl,
@@ -10,7 +12,9 @@ import {
   FormLabel,
   InputRightElement,
 } from "@chakra-ui/react";
+
 import { useGenerateImage } from "../hooks/useGenerateImage";
+import { useStore } from "../stores/user";
 
 type FormValues = {
   prompt: string;
@@ -18,16 +22,13 @@ type FormValues = {
 };
 
 export default function HookForm() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const { register, handleSubmit } = useForm<FormValues>();
 
-  const GenerateImage = async (values: unknown) => {
-    const { prompt, size } = values;
+  const { addImage } = useStore();
 
-    console.log(await useGenerateImage(prompt, size));
+  const GenerateImage: SubmitHandler<FormValues> = async (values) => {
+    const generated = await useGenerateImage(values.prompt, values.size);
+    
   };
 
   return (
