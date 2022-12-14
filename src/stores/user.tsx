@@ -2,32 +2,34 @@ import { useSession } from "next-auth/react";
 import create from "zustand";
 import { trpc } from "../utils/trpc";
 
-const { data: sessionData } = useSession();
-
+type Image = {
+  url: string;
+  prompt: string;
+};
 interface UserState {
-  images?: string[];
-  addImage: (image: string) => void;
-  addImages: (images: string[]) => void;
-  removeImage: (image: string) => void;
+  images: Image[] | [];
+  addImage: (url: string, prompt: string) => void;
+  removeImage: (url: string, prompt: string) => void;
 }
 
 export const useStore = create<UserState>((set) => ({
   // initial state
   images: [],
   // methods for manipulating state
-  addImage: (image: string) => {
+  addImage: (url, prompt) => {
     set((state) => ({
-      images: [...(state.images || []), image],
+      images: [
+        ...state.images,
+        {
+          url: url,
+          prompt: prompt,
+        } as Image,
+      ],
     }));
   },
-  addImages: (images: string[]) => {
+  removeImage: (url: string) => {
     set((state) => ({
-      images: images,
-    }));
-  },
-  removeImage: (image: string) => {
-    set((state) => ({
-      images: state.images?.filter((x) => x !== image),
+      images: state.images?.filter((x) => x.url !== url),
     }));
   },
 }));
