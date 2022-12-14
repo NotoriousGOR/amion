@@ -2,12 +2,12 @@ import type { ImagesResponse } from "openai";
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAPI_KEY,
+  apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
 
-export async function generateImage(
+export async function useGenerateImage(
   prompt: string,
   size: string
 ): Promise<ImagesResponse | void> {
@@ -17,7 +17,7 @@ export async function generateImage(
   try {
     const response = await openai.createImage({
       prompt,
-      n: 1,
+      n: 6,
       size: imageSize,
     });
 

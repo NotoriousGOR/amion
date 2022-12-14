@@ -10,7 +10,7 @@ import {
   FormLabel,
   InputRightElement,
 } from "@chakra-ui/react";
-import { generateImage } from "../hooks/generateImage";
+import { useGenerateImage } from "../hooks/useGenerateImage";
 
 type FormValues = {
   prompt: string;
@@ -24,14 +24,14 @@ export default function HookForm() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const generate = (values: unknown) => {
-    const { size, prompt } = values;
+  const GenerateImage = async (values: unknown) => {
+    const { prompt, size } = values;
 
-    generateImage(size, prompt);
+    console.log(await useGenerateImage(prompt, size));
   };
 
   return (
-    <form onSubmit={handleSubmit(generate)}>
+    <form onSubmit={handleSubmit(GenerateImage)}>
       <Flex direction="row" align="center" justify="center">
         <FormControl marginRight="10">
           <FormLabel color="white" opacity={0.4}>
