@@ -18,6 +18,7 @@ export default function ImageList() {
           return (
             <ListItem key={index} marginY="4">
               <Image
+                borderRadius="lg"
                 src={image.url}
                 alt={image.prompt}
                 whileHover={{
