@@ -1,5 +1,6 @@
 import type { ImagesResponse } from "openai";
 import { Configuration, OpenAIApi } from "openai";
+import { useStore } from "../stores/user";
 
 const configuration = new Configuration({
   apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,

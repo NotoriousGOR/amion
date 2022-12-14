@@ -7,9 +7,12 @@ import { Flex, Stack, Text } from "@chakra-ui/react";
 
 import HookForm from "../components/Form";
 import NavBar from "../components/NavBar";
+import { useStore } from "../stores/user";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
+  const { images, addImage, removeImage} = useStore();
+
   return (
     <>
       <Head>
