@@ -22,19 +22,27 @@ type FormValues = {
 };
 
 export default function HookForm() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
 
   const { addImage } = useStore();
 
   const GenerateImage: SubmitHandler<FormValues> = async (values) => {
     const generated = await useGenerateImage(values.prompt, values.size);
-    
+    if (generated) {
+      generated.data.map((image) => {
+        if (image.url) addImage(image.url, values.prompt);
+      });
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(GenerateImage)}>
       <Flex direction="row" align="center" justify="center">
-        <FormControl marginRight="10">
+        <FormControl marginRight="10" isInvalid={errors.size ? true : false}>
           <FormLabel color="white" opacity={0.4}>
             Size
           </FormLabel>
@@ -45,7 +53,7 @@ export default function HookForm() {
             color="black"
             fontSize="xl"
             w="xxs"
-            defaultValue="medium"
+            defaultValue="small"
             {...register("size", {
               required: "This is required",
             })}
@@ -55,10 +63,21 @@ export default function HookForm() {
             <option value="large">Large</option>
           </Select>
         </FormControl>
-        <FormControl isInvalid={errors.name ? true : false}>
-          <FormLabel color="white" opacity={0.4}>
-            Description
-          </FormLabel>
+        <FormControl isInvalid={errors.prompt ? true : false}>
+          <Flex direction="row" align="center" justify="space-between">
+            <FormLabel color="white" opacity={0.4}>
+              Description
+            </FormLabel>
+            {(errors?.prompt || errors.size) && (
+              <>
+                {errors.prompt && !errors.size ? (
+                  <FormErrorMessage>{errors.prompt?.message}</FormErrorMessage>
+                ) : (
+                  <FormErrorMessage>{errors.size?.message}</FormErrorMessage>
+                )}
+              </>
+            )}
+          </Flex>
           <InputGroup>
             <Input
               id="prompt"
@@ -85,10 +104,6 @@ export default function HookForm() {
               </Button>
             </InputRightElement>
           </InputGroup>
-
-          {errors?.name && (
-            <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-          )}
         </FormControl>
       </Flex>
     </form>
