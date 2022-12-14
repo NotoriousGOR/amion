@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
-import { Flex, Stack, Text, Divider } from "@chakra-ui/react";
+import { Flex, Stack, Text, Container } from "@chakra-ui/react";
 
 import HookForm from "../components/Form";
 import NavBar from "../components/NavBar";
@@ -49,7 +49,9 @@ const Home: NextPage = () => {
             </Stack>
           )}
           <HookForm />
-          <ImageList />
+          <Container marginTop="16" maxW="5xl">
+            <ImageList />
+          </Container>
         </Flex>
       </main>
     </>

@@ -1,10 +1,14 @@
-import { Flex, List, ListItem, Image } from "@chakra-ui/react";
+import { Flex, List, ListItem, chakra } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+
 import { useStore } from "../stores/user";
 
 export default function ImageList() {
+  const Image = chakra(motion.img);
+
   const { images } = useStore();
   return (
-    <List marginTop="16">
+    <List>
       <Flex
         direction={{ base: "column-reverse", md: "row" }}
         wrap="wrap"
@@ -13,7 +17,13 @@ export default function ImageList() {
         {images?.map((image, index) => {
           return (
             <ListItem key={index} marginY="4">
-              <Image src={image.url} alt={image.prompt}></Image>
+              <Image
+                src={image.url}
+                alt={image.prompt}
+                whileHover={{
+                    scale:1.2
+                }}
+              ></Image>
             </ListItem>
           );
         })}
