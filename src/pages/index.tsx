@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>AVI</title>
+        <title>Amion</title>
         <meta
           name="description"
           content="UI to generate Images from the Open API"
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                 fontSize="6xl"
                 fontWeight="bold"
               >
-                Welcome to AVI
+                Welcome to Amion
               </Text>
               <Text fontSize="3xl" marginBottom="0">
                 Another Text-To-Art Generator
